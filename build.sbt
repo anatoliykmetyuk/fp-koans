@@ -1,4 +1,4 @@
-val ScalaVer = "2.12.6"
+val ScalaVer = "2.12.7"
 
 // val Cats          = "0.9.0"
 val CatsEffect    = "0.10.1"
