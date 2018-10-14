@@ -1,6 +1,6 @@
 package ackermann
 
-object StackY extends Test {
+object StackYOverflow extends Test {
   def Y[A, B](f: (A => B) => (A => B)): A => B =
     { a => f(Y(f))(a) }
 
