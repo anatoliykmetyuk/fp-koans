@@ -1,6 +1,6 @@
 package ackermann
 
-object StackBetter extends Test {
+object Tailrec extends App with Test {
   def ack(m: Int, n: Int): Int = {
     @annotation.tailrec def loop(mx: List[Int], n: Int): Int = (mx, n) match {
       case (0 :: ms, n) => loop(              ms, n + 1)
@@ -11,5 +11,5 @@ object StackBetter extends Test {
     loop(m :: Nil, n)
   }
 
-  def main(args: Array[String]): Unit = test()
+  test()
 }

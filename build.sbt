@@ -1,14 +1,14 @@
 val ScalaVer = "2.12.7"
 
 // val Cats          = "0.9.0"
-val CatsEffect    = "0.10.1"
-val KindProjector = "0.9.7"
+val CatsEffect    = "1.0.0"
+val KindProjector = "0.9.8"
 
 val ScalaTest  = "3.0.4"
 val ScalaCheck = "1.13.5"
 
 lazy val commonSettings = Seq(
-  name    := "ackermann"
+  name    := "fp-koans"
 , version := "0.1.0"
 , scalaVersion := ScalaVer
 , libraryDependencies ++= Seq(

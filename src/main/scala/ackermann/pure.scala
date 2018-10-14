@@ -2,8 +2,7 @@ package ackermann
 
 import annotation.tailrec
 
-
-object util {
+object pure {
   sealed trait Pure[A] {
     def step: Either[Pure[A], A] = this match {
       case Done(a)       => Right(a)
@@ -23,8 +22,8 @@ object util {
       }
     }
 
-    def flatMap[B](f: A => Pure[B]): Pure[B] = util.flatMap(this)(f)
-    def map    [B](f: A => B      ): Pure[B] = util.map    (this)(f)
+    def flatMap[B](f: A => Pure[B]): Pure[B] = pure.flatMap(this)(f)
+    def map    [B](f: A => B      ): Pure[B] = pure.map    (this)(f)
   }
 
   final private[this] case class Done[A](a: A) extends Pure[A]
@@ -37,39 +36,4 @@ object util {
   def call   [A   ](p: => Pure[A]               ): Pure[A] = Call(() => p)
   def flatMap[A, B](pa: Pure[A])(f: A => Pure[B]): Pure[B] = Cont(pa, f  )
   def map    [A, B](pa: Pure[A])(f: A =>      B ): Pure[B] = flatMap(pa)(a => done(f(a)))
-}
-
-object Main {
-  import util._
-
-  def ackermann(m: Int, n: Int): Pure[Int] = (m, n) match {
-    case (0, _) => done(n + 1)
-    case (m, 0) if m > 0 => call(ackermann(m - 1, 1))
-    case (m, n) if m > 0 && n > 0 =>
-      for {
-        inner <- call(ackermann(m, n - 1))
-        outer <- call(ackermann(m - 1, inner))
-      } yield outer
-  }
-
-  def ackermannI(m: Int, n: Int): Int = (m, n) match {
-    case (0, _) => n + 1
-    case (m, 0) if m > 0 => ackermannI(m - 1, 1)
-    case (m, n) if m > 0 && n > 0 => ackermannI(m - 1, ackermannI(m, n - 1))
-  }
-
-  def main(args: Array[String]): Unit = {
-    val logStridePower = 9
-    val logStride = math.pow(10, logStridePower).toLong
-    var contStep  = 0l
-    
-    def debug[A](x: Pure[A]): Unit = {
-      if (contStep % logStride == 0) println(s"Step ${contStep / logStride}*10^$logStridePower")
-      contStep += 1
-    }
-
-    val start = System.currentTimeMillis
-    println(s"(4, 1): ${ackermann(4, 1)})")
-    val time = System.currentTimeMillis - start
-  }
 }
