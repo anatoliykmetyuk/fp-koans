@@ -3,8 +3,7 @@ package ackermann
 import pure._
 
 object YMonadic extends App with Test {
-  def Y[A, B](f: (A => Pure[B]) => (A => Pure[B])): A => Pure[B] =
-    a => call(f(Y(f))(a))
+  def Y[A, B](f: (A => Pure[B]) => (A => Pure[B])): A => Pure[B] = a => call(f(Y(f))(a))
 
   type AckStep = ((Int, Int)) => Pure[Int]
   val ackLike: AckStep => AckStep = g => {
@@ -17,8 +16,7 @@ object YMonadic extends App with Test {
       } yield outer
   }
 
-  def ack(m: Int, n: Int): Int =
-    Y(ackLike)((m, n)).compute()
+  def ack(m: Int, n: Int): Int = Y(ackLike)((m, n)).compute()
 
   test()
 }

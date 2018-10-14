@@ -1,8 +1,7 @@
 package ackermann
 
 object YStackOverflow extends App with Test {
-  def Y[A, B](f: (A => B) => (A => B)): A => B =
-    { a => f(Y(f))(a) }
+  def Y[A, B](f: (A => B) => (A => B)): A => B = a => f(Y(f))(a)
 
   type AckStep = ((List[Int], Int)) => Int
   val ackLike: AckStep => AckStep = g => {

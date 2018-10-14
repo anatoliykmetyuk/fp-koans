@@ -3,8 +3,7 @@ package ackermann
 import eval._
 
 object YTrampoline extends App with Test {
-  def Y[A, B](f: (A => Eval[B]) => (A => Eval[B])): A => Eval[B] =
-    a => later(f(Y(f))(a))
+  def Y[A, B](f: (A => Eval[B]) => (A => Eval[B])): A => Eval[B] = a => later(f(Y(f))(a))
 
   type AckStep = ((List[Int], Int)) => Eval[Int]
   val ackLike: AckStep => AckStep = g => {
@@ -14,8 +13,7 @@ object YTrampoline extends App with Test {
     case (Nil,     n) => now(n)
   }
 
-  def ack(m: Int, n: Int): Int =
-    Y(ackLike)((m :: Nil, n)).compute()
+  def ack(m: Int, n: Int): Int = Y(ackLike)((m :: Nil, n)).compute()
 
   test()
 }
