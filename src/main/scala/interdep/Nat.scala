@@ -1,4 +1,4 @@
-package interop
+package interdep
 
 sealed trait Nat
 sealed trait Z extends Nat
@@ -8,6 +8,7 @@ trait Op[O, N <: Nat, M <: Nat] {
   type Out <: Nat
   def value(implicit ti: ToInt[Out]) = ti.value
   def print(implicit ti: ToInt[Out]) = println(value)
+  def =:=[X](implicit ev: =:=[Out, X]) = true
 }
 
 object Op {

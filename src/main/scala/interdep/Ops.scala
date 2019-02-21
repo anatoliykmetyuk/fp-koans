@@ -1,4 +1,4 @@
-package interop
+package interdep
 
 import shapeless.Lazy
 
@@ -29,14 +29,14 @@ object Exp extends OpBuilder {
 }
 
 object Main extends App {
-  Plus [Z , N2]().print  // 2
-  Plus [N1, N2]().print  // 3
+  Plus[Z , N2](). =:= [N2]
+  Plus[N1, N2](). =:= [N3]
 
-  Times[N4, Z ]().print  // 0
-  Times[N2, N3]().print  // 6
-  Times[N5, N5]().print  // 25
+  Times[N4, Z ](). =:= [Z]
+  Times[N2, N3](). =:= [N6]
+  Times[N3, N3](). =:= [N9]
 
-  Exp[N2, Z ]().print  // 1
-  Exp[Z , N4]().print  // 0
-  Exp[N2, N5]().print  // 32
+  Exp[N2, Z ](). =:= [N1]
+  Exp[Z , N4](). =:= [Z]
+  Exp[N2, N3](). =:= [N8]
 }

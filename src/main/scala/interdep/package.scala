@@ -1,4 +1,4 @@
-package object interop {
+package object interdep {
   type N1  = S[Z  ]
   type N2  = S[N1 ]
   type N3  = S[N2 ]
@@ -16,4 +16,22 @@ package object interop {
   type N15 = S[N14]
   type N16 = S[N15]
   type N17 = S[N16]
+  type N18 = S[N17]
+  type N19 = S[N18]
+  type N20 = S[N19]
+  type N21 = S[N20]
+  type N22 = S[N21]
+  type N23 = S[N22]
+  type N24 = S[N23]
+  type N25 = S[N24]
+  type N26 = S[N25]
+  type N27 = S[N26]
+  type N28 = S[N27]
+  type N29 = S[N28]
+  type N30 = S[N29]
+  type N31 = S[N30]
+  type N32 = S[N31]
+  type N33 = S[N32]
+  type N34 = S[N33]
+  type N35 = S[N34]
 }
