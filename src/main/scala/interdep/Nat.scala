@@ -23,7 +23,7 @@ object Op {
 
 trait OpBuilder {
   type Tag = this.type
-  type Plus[N <: Nat, M <: Nat] = Op[Tag, N, M]
+  type Type[N <: Nat, M <: Nat] = Op[Tag, N, M]
   type Aux [N <: Nat, M <: Nat, R <: Nat] = Op.Aux[Tag, N, M, R]
 
   def apply[N <: Nat, M <: Nat] = Op[Tag, N, M]
