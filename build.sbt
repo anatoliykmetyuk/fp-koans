@@ -10,12 +10,16 @@ lazy val commonSettings = Seq(
   name    := "fp-koans"
 , version := "0.1.0"
 , scalaVersion := ScalaVer
+, resolvers += Resolver.sonatypeRepo("releases")
+
 , libraryDependencies ++= Seq(
     "org.typelevel"  %% "cats-effect" % CatsEffect
   , "com.chuusai" %% "shapeless" % "2.3.3"
   )
 
 , addCompilerPlugin("org.spire-math" %% "kind-projector" % KindProjector)
+, addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
+
 , scalacOptions ++= Seq(
       "-deprecation"
     , "-encoding", "UTF-8"
@@ -39,9 +43,6 @@ lazy val root = (project in file("."))
 
 lazy val macros = (project in file("macros"))
   .settings(commonSettings)
-  .settings(
-    libraryDependencies += "org.scalameta" %% "scalameta" % "4.1.4"
-  )
 
 lazy val koans = (project in file("koans"))
   .dependsOn(macros).settings(commonSettings)

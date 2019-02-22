@@ -1,38 +1,24 @@
-package koans.overlay
+package koans
+package overlay
 
-case class User(id: Option[Int] = None, name: String, password: String)
+import collection.mutable.{ ListBuffer => MList }
 
-object db {
-  var user: List[User] = Nil
-}
+import koans.tagged._
 
-object assumptions {
-  case class Id(value: Int)
+import db._, data._, Runner.RunnerOps
 
-  implicit def int2id(x: Int): Id = Id(x)
-  implicit def extract: Extract[User, Id] = _.id.get
+object controller {
+  @derive def register: User => Create[User]
 
-  implicit def userC: Collection[User] = new Collection[User] {
-    def insert(u: User): Unit = db.user :+= u
-    override def find[V: Extract[User, ?]](c: Condition[V]): Option[User] =
-      db.user.find { u =>
-        val e: V = Extract[User, V].apply(u)
-        c.check(e)
-      }
-  }
-}
+  @derive def profile: Id => Find[User, Eq[Id]]
 
-object controller { import assumptions._
-
-  def register(implicit e1: User): Create[User] = implicitly
-  def profile(implicit id: Id): Find[User, Eq[Id]] = implicitly
-  // def login(implicit name: Name, password: Password)
-  // : Strict[Find[User, Eq[Name] And Eq[Password]], BadCredentialsMsg] = implicitly
-
+  @derive def login: (Name, Password) =>
+    Strict[Find[User, Eq[Name] And Eq[Password]], IncorrectCredentialsMsg.type]
 }
 
 object Main extends App { import controller._
-  // register(User(id = Some(1), name = "foo", password = "bar")).run()
-  // println(profile(1).run())
-  // login("foo", "bar")
+  register(User(id = 1, name = "foo", password = "bar")).run()
+  println(profile(1).run())
+  println(login("foo", "bar").run())
+  println(login("foo", "barr").run())
 }
