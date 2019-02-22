@@ -1,4 +1,4 @@
-package ackermann
+package koans.ackermann
 
 object YStackOverflow extends App with Test {
   def Y[A, B](f: (A => B) => (A => B)): A => B = a => f(Y(f))(a)

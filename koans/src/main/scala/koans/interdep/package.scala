@@ -1,3 +1,5 @@
+package koans
+
 package object interdep {
   type N1  = S[Z  ]
   type N2  = S[N1 ]

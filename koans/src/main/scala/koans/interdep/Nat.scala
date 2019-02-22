@@ -1,4 +1,4 @@
-package interdep
+package koans.interdep
 
 sealed trait Nat
 sealed trait Z extends Nat

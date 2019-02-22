@@ -1,4 +1,25 @@
-package object weird {
+package koans.weird
+
+trait A
+trait F[X]
+
+trait Foo {
+  type V
+  def ===[X](implicit ev: V =:= X) = ev
+}
+
+trait Weird {
+  import Types._
+
+  type X = F25
+
+  val foo = new Foo { type V = X }
+
+  foo.===[X]  // Compilation time: 3 seconds
+  // new Foo { type V = X }.===[X]  // Compilation time: 16 seconds
+}
+
+object Types {
   type F1  = F[A  ]
   type F2  = F[F1 ]
   type F3  = F[F2 ]
@@ -20,4 +41,8 @@ package object weird {
   type F19 = F[F18]
   type F20 = F[F19]
   type F21 = F[F20]
+  type F22 = F[F21]
+  type F23 = F[F22]
+  type F24 = F[F23]
+  type F25 = F[F24]
 }

@@ -1,4 +1,4 @@
-package ackermann
+package koans.ackermann
 
 object eval {
   sealed trait Eval[A] {

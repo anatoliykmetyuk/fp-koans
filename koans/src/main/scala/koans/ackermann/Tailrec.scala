@@ -1,4 +1,4 @@
-package ackermann
+package koans.ackermann
 
 object Tailrec extends App with Test {
   def ack(m: Int, n: Int): Int = {

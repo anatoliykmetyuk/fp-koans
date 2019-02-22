@@ -1,4 +1,4 @@
-package ackermann
+package koans.ackermann
 
 trait Test {
   def ack(m: Int, n: Int): Int

@@ -1,6 +1,6 @@
-package time
+package koans.time
 
-import ackermann.eval._
+import koans.ackermann.eval._
 
 object timeApi {
   case class X[A](value: X[A] => A) {

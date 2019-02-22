@@ -1,8 +1,7 @@
-val ScalaVer = "2.12.7"
+val ScalaVer = "2.12.8"
 
-// val Cats          = "0.9.0"
-val CatsEffect    = "1.0.0"
-val KindProjector = "0.9.8"
+val CatsEffect    = "1.2.0"
+val KindProjector = "0.9.9"
 
 val ScalaTest  = "3.0.4"
 val ScalaCheck = "1.13.5"
@@ -12,12 +11,8 @@ lazy val commonSettings = Seq(
 , version := "0.1.0"
 , scalaVersion := ScalaVer
 , libraryDependencies ++= Seq(
-    // "org.typelevel"  %% "cats"        % Cats
     "org.typelevel"  %% "cats-effect" % CatsEffect
   , "com.chuusai" %% "shapeless" % "2.3.3"
-  // , "org.scalatest"  %% "scalatest"  % ScalaTest  % "test"
-  // , "org.scalacheck" %% "scalacheck" % ScalaCheck % "test"
-
   )
 
 , addCompilerPlugin("org.spire-math" %% "kind-projector" % KindProjector)
@@ -40,6 +35,13 @@ lazy val commonSettings = Seq(
 
 lazy val root = (project in file("."))
   .settings(commonSettings)
+  .aggregate(koans, macros)
+
+lazy val macros = (project in file("macros"))
+  .settings(commonSettings)
   .settings(
-    initialCommands := "import ackermann._, Main._"
+    libraryDependencies += "org.scalameta" %% "scalameta" % "4.1.4"
   )
+
+lazy val koans = (project in file("koans"))
+  .dependsOn(macros).settings(commonSettings)

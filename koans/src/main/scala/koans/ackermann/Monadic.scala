@@ -1,4 +1,4 @@
-package ackermann
+package koans.ackermann
 
 import annotation.tailrec
 import pure._

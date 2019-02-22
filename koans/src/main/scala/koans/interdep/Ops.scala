@@ -1,4 +1,4 @@
-package interdep
+package koans.interdep
 
 import shapeless.Lazy
 
